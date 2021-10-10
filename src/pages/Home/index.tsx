@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { useAppSelector } from "hooks/hooks";
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { getBookListAction } from "store/modules/product/get-book-list";
@@ -11,7 +11,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
 
   const initData = React.useCallback(() => {
     dispatch(getBookListAction());
-  }, []);
+  }, [dispatch]);
 
   React.useEffect(() => {
     initData();
