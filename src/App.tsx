@@ -1,11 +1,16 @@
-import React from "react";
-import {Route,Switch} from 'react-router-dom'
+import { lazy, Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
+const HomePage = lazy(
+  () => import(/* webpackChunkName: "HomePage" */ "./pages/Home")
+);
 
 function App() {
   return (
-    <div >
-      <h1>hello</h1>
-    </div>
+    <Suspense fallback={<h6>Loading ...</h6>}>
+      <Switch>
+        <Route exact={true} path="/" component={HomePage} />
+      </Switch>
+    </Suspense>
   );
 }
 
