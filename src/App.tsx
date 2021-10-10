@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import "assets/sass/main.scss";
+
 const HomePage = lazy(
   () => import(/* webpackChunkName: "HomePage" */ "./pages/Home")
 );
