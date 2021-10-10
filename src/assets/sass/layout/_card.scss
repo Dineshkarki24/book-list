@@ -14,4 +14,20 @@
     right: 2rem;
     width: 75%;
   }
+  .card-body {
+    font-size: 1.4rem;
+    padding: 1rem;
+    color: $color-grey-dark;
+    & .primary-heading {
+      color: $color-black;
+      font-size: 2rem;
+    }
+    & ul {
+      list-style: none;
+    }
+  }
+  & .card-footer {
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
 }

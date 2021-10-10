@@ -1,0 +1,19 @@
+nav {
+  color: $color-white;
+  background-color: rgba(12, 64, 48, 0.9);
+  font-size: 1.6rem;
+  padding: 0.5rem 1rem;
+
+  .navbar {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    ul {
+      list-style: none;
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+}

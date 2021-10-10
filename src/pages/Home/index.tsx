@@ -2,6 +2,10 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "hooks/hooks";
 import { getBookListAction } from "store/modules/product/get-book-list";
+import { BsFillBookFill, BsFillPersonFill } from "react-icons/bs";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { MdDateRange } from "react-icons/md";
+import { AiOutlineStock } from "react-icons/ai";
 
 interface IHomePageProps {}
 type IBookData = {
@@ -36,19 +40,33 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
           return (
             <>
               <div className="col-1-of-4 card u-margin-bottom-medium">
-                <img src={item.image} alt="" />
+                <div className="image-wrapper">
+                  <img src={item.image} alt="" />
+                </div>
                 <div className="card-body">
-                  <h6>{item.name}</h6>
-                  <ul>
-                    <li>author:{item.author}</li>
-                    <li>Genre:{item.genre}</li>
-                    <li>Price:{item.price}</li>
-                    <li>Published Date:{item.published_date}</li>
-                    <li>stock:{item.stock}</li>
+                  <h6 className="primary-heading">{item.name}</h6>
+                  <ul className="list-item">
+                    <li>
+                      <BsFillPersonFill /> {item.author}
+                    </li>
+                    <li>
+                      <BsFillBookFill /> {item.genre}
+                    </li>
+                    <li>
+                      <FaRegMoneyBillAlt /> {item.price}
+                    </li>
+                    <li>
+                      <MdDateRange />
+                      {item.published_date}
+                    </li>
+                    <li>
+                      <AiOutlineStock />
+                      {item.stock}
+                    </li>
                   </ul>
                 </div>
                 <div className="card-footer">
-                  <button className="btn btn-primary">Add to cart</button>
+                  <button className="btn btn--green">Add to cart</button>
                 </div>
               </div>
             </>
