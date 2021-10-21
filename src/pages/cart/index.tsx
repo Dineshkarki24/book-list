@@ -3,10 +3,12 @@ import * as React from "react";
 import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import {
   decrementCartItemCount,
   incrementCartItemCount,
   removeItemFromCart,
+  toggleCart,
 } from "store/modules/cart/cartAction";
 import { convertDollersToRupees, getCommaSeperateNumber } from "utils/utils";
 
@@ -14,17 +16,25 @@ interface ICartPageProps {}
 
 const CartPage: React.FunctionComponent<ICartPageProps> = (props) => {
   const cartData = useAppSelector((state) => state.cart);
+  const isCartOpen = useAppSelector((state) => state.isCartOpen.isCartOpen);
+
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const totalPrice = React.useMemo(() => {
     return cartData.cartItem.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.totalPrice;
     }, 0);
   }, [cartData]);
+  console.log(isCartOpen, "isCartOpen");
   return (
-    <div className="cart">
+    <div className={`cart cart-${isCartOpen ? "open" : "close"}`}>
       <div className="cart-header">
         <div className="cart-header__title">Cart</div>
-        <div className="cart-header__icon">
+        <div
+          onClick={() => dispatch(toggleCart())}
+          className="cart-header__icon"
+        >
           <AiOutlineClose />
         </div>
       </div>
@@ -37,7 +47,7 @@ const CartPage: React.FunctionComponent<ICartPageProps> = (props) => {
           cartData.cartItem?.map((item) => {
             return (
               <>
-                <div className="row mb-0">
+                <div key={item.id} className="row mb-0">
                   <div className="col-1-of-3">
                     <img src={item.image} alt="" />
                   </div>
@@ -93,7 +103,13 @@ const CartPage: React.FunctionComponent<ICartPageProps> = (props) => {
             {getCommaSeperateNumber(convertDollersToRupees(`$ ${totalPrice}`))}
           </div>
         </div>
-        <button className="btn btn--green cart-footer__btn">
+        <button
+          disabled={cartData.cartItem.length === 0}
+          onClick={() => {
+            history.push("/checkout");
+          }}
+          className="btn btn--green cart-footer__btn"
+        >
           Checkout all items
         </button>
       </div>

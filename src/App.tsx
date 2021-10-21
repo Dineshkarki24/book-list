@@ -9,6 +9,12 @@ const HomePage = lazy(
 const CartPage = lazy(
   () => import(/* webpackChunkName: "CartPage" */ "pages/cart")
 );
+const PageNotFound = lazy(
+  () => import(/* webpackChunkName: "PageNotFound" */ "pages/pageNotFound")
+);
+const CheckoutPage = lazy(
+  () => import(/* webpackChunkName: "CheckoutPage" */ "pages/checkout")
+);
 
 function App() {
   return (
@@ -16,8 +22,11 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact={true} path="/" component={HomePage} />
-        <Route path="/cart" component={CartPage} />
+        {/* <Route path="/cart" component={CartPage} /> */}
+        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="*" component={PageNotFound} />
       </Switch>
+      <CartPage />
     </Suspense>
   );
 }

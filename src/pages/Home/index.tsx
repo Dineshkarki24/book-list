@@ -44,15 +44,25 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
     [dispatch]
   );
 
+  function isInt(n) {
+    return n % 1 === 0;
+  }
+
   if (listBookData.isFetching) return <h6>Loading ...</h6>;
   return (
     <>
-      <h1>Product</h1>
+      <div className="row mb-0">
+        <h1 className="u-margin-bottom-small">All Product</h1>
+      </div>
       <div className="row">
-        {listBookData.data?.map((item: IBookData) => {
+        {listBookData.data?.map((item: IBookData, idx) => {
           return (
             <>
-              <div className="col-1-of-4 card u-margin-bottom-medium">
+              <div
+                className={`col-1-of-4 card u-margin-bottom-medium ${
+                  isInt((idx + 1) / 4) ? "mr-0" : ""
+                }`}
+              >
                 <div className="image-wrapper">
                   <img src={item.image} alt="" />
                 </div>
@@ -96,7 +106,6 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
             </>
           );
         })}
-        <CartPage />
       </div>
     </>
   );

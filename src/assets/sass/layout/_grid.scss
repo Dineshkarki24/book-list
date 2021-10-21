@@ -19,7 +19,6 @@
 
   [class^="col-"] {
     float: left;
-
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
 
@@ -49,7 +48,6 @@
   }
 
   .col-1-of-4 {
-    @include clearfix;
     width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
   }
 

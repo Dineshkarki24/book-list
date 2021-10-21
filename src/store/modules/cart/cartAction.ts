@@ -27,3 +27,9 @@ export function decrementCartItemCount(id) {
     payload: id,
   };
 }
+
+export function toggleCart() {
+  return {
+    type: cartActionName.OPEN_CART,
+  };
+}

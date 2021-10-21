@@ -8,7 +8,7 @@
   background-color: #fff;
   width: 35rem;
   transform: none;
-  transition: transform 0.2s;
+  transition: transform 0.5s;
   font-size: 1.6rem;
   &-header {
     padding: 1.4rem;
@@ -53,6 +53,13 @@
     &__count {
       padding: 0 25px;
     }
+  }
+  &-open {
+    transform: translateX(0);
+  }
+  &-close {
+    transform: translateX(100%);
+    // display: none;
   }
 }
 

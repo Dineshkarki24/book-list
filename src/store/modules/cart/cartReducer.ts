@@ -73,14 +73,11 @@ export const cartReducer = (state = initialState, action) => {
   }
 };
 
-// /**
-//  * Remove Item from cart
-//  * */
-
-// export const removeItemFromCartReducer = (state,action) => {
-//   switch (action.type) {
-
-//     default:
-//       break;
-//   }
-// }
+export const toggleCartReducer = (state = { isCartOpen: false }, action) => {
+  switch (action.type) {
+    case cartActionName.OPEN_CART:
+      return { ...state, isCartOpen: !state.isCartOpen };
+    default:
+      return state;
+  }
+};
