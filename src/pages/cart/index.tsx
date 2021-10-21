@@ -1,9 +1,104 @@
+import { useAppSelector } from "hooks/hooks";
 import * as React from "react";
+import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { BsTrashFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import {
+  decrementCartItemCount,
+  incrementCartItemCount,
+  removeItemFromCart,
+} from "store/modules/cart/cartAction";
+import { convertDollersToRupees, getCommaSeperateNumber } from "utils/utils";
 
 interface ICartPageProps {}
 
 const CartPage: React.FunctionComponent<ICartPageProps> = (props) => {
-  return <h1>cart page</h1>;
+  const cartData = useAppSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const totalPrice = React.useMemo(() => {
+    return cartData.cartItem.reduce((previousValue, currentValue) => {
+      return previousValue + currentValue.totalPrice;
+    }, 0);
+  }, [cartData]);
+  return (
+    <div className="cart">
+      <div className="cart-header">
+        <div className="cart-header__title">Cart</div>
+        <div className="cart-header__icon">
+          <AiOutlineClose />
+        </div>
+      </div>
+      <div className="cart-body">
+        {cartData.cartItem.length === 0 ? (
+          <div className="no-item">
+            <h6>Your cart is empty.</h6>
+          </div>
+        ) : (
+          cartData.cartItem?.map((item) => {
+            return (
+              <>
+                <div className="row mb-0">
+                  <div className="col-1-of-3">
+                    <img src={item.image} alt="" />
+                  </div>
+                  <div className="col-1-of-6">{item.name}</div>
+                  <div className="col-1-of-3">
+                    Rs.
+                    {getCommaSeperateNumber(
+                      convertDollersToRupees(`$ ${item.totalPrice}`)
+                    )}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-1-of-3">
+                    <span
+                      onClick={() => {
+                        dispatch(removeItemFromCart(item.id));
+                      }}
+                      className="remove-item"
+                    >
+                      <BsTrashFill />
+                    </span>
+                  </div>
+                  <div className="col-1-of-8">
+                    <div className="cart-icon">
+                      <span
+                        onClick={() => {
+                          dispatch(decrementCartItemCount(item.id));
+                        }}
+                      >
+                        <AiOutlineMinus />
+                      </span>
+                      <span className="cart-icon__count">{item.count}</span>
+                      <span
+                        onClick={() => {
+                          dispatch(incrementCartItemCount(item.id));
+                        }}
+                      >
+                        <AiOutlinePlus />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            );
+          })
+        )}
+      </div>
+      <div className="cart-footer">
+        <div className="cart-footer__cost">
+          <div className="cart-footer__lable">Estimated total</div>
+          <div className="cart-footer__price">
+            Rs.{" "}
+            {getCommaSeperateNumber(convertDollersToRupees(`$ ${totalPrice}`))}
+          </div>
+        </div>
+        <button className="btn btn--green cart-footer__btn">
+          Checkout all items
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default CartPage;

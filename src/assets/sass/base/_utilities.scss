@@ -27,3 +27,14 @@
 .u-margin-top-huge {
   margin-top: 10rem !important;
 }
+
+.clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}

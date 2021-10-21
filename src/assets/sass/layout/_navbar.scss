@@ -2,9 +2,9 @@ nav {
   color: $color-white;
   background-color: rgba(12, 64, 48, 0.9);
   font-size: 1.6rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
 
-  .navbar {
+  & .navbar {
     width: 80%;
     margin: 0 auto;
     display: flex;
@@ -13,6 +13,23 @@ nav {
       list-style: none;
       svg {
         cursor: pointer;
+      }
+    }
+  }
+  & .cart {
+    &__list {
+      position: relative;
+      & span {
+        position: absolute;
+        top: -0.8rem;
+        right: -1.2rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 10rem;
+        background-color: $color-black;
+        color: $color-white;
+        text-align: center;
+        font-size: 1.2rem;
       }
     }
   }

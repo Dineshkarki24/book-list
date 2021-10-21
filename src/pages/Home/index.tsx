@@ -5,7 +5,13 @@ import { getBookListAction } from "store/modules/product/get-book-list";
 import { BsFillBookFill, BsFillPersonFill } from "react-icons/bs";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
-import { AiOutlineStock } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineStock } from "react-icons/ai";
+import formatDate, {
+  convertDollersToRupees,
+  getCommaSeperateNumber,
+} from "utils/utils";
+import { addToCartAction } from "store/modules/cart/cartAction";
+import CartPage from "pages/cart";
 
 interface IHomePageProps {}
 type IBookData = {
@@ -20,6 +26,7 @@ type IBookData = {
 };
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
   const listBookData = useAppSelector((state) => state.listBookData);
+
   const dispatch = useDispatch();
 
   const initData = React.useCallback(() => {
@@ -30,7 +37,13 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
     initData();
   }, [initData]);
 
-  console.log(listBookData);
+  const handleAddToCart = React.useCallback(
+    (product: IBookData) => {
+      dispatch(addToCartAction(product));
+    },
+    [dispatch]
+  );
+
   if (listBookData.isFetching) return <h6>Loading ...</h6>;
   return (
     <>
@@ -53,11 +66,14 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
                       <BsFillBookFill /> {item.genre}
                     </li>
                     <li>
-                      <FaRegMoneyBillAlt /> {item.price}
+                      <FaRegMoneyBillAlt />{" "}
+                      {getCommaSeperateNumber(
+                        convertDollersToRupees(item.price)
+                      )}
                     </li>
                     <li>
                       <MdDateRange />
-                      {item.published_date}
+                      {formatDate(item.published_date)}
                     </li>
                     <li>
                       <AiOutlineStock />
@@ -66,12 +82,21 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
                   </ul>
                 </div>
                 <div className="card-footer">
-                  <button className="btn btn--green">Add to cart</button>
+                  <button
+                    // disabled={}
+                    onClick={() => {
+                      handleAddToCart(item);
+                    }}
+                    className="btn btn--green"
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </>
           );
         })}
+        <CartPage />
       </div>
     </>
   );

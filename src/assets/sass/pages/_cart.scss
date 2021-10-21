@@ -1,0 +1,74 @@
+.cart {
+  position: fixed;
+  right: 0;
+  box-shadow: 0 3px 5px 2px #00000026;
+  z-index: 100;
+  height: 100%;
+  top: 0;
+  background-color: #fff;
+  width: 35rem;
+  transform: none;
+  transition: transform 0.2s;
+  font-size: 1.6rem;
+  &-header {
+    padding: 1.4rem;
+    background-color: $color-primary;
+    display: flex;
+    justify-content: space-between;
+    &__title,
+    &__icon {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-white;
+    }
+    &__icon {
+      cursor: pointer;
+    }
+  }
+  &-body {
+    padding: 1.4rem;
+    height: 75vh;
+    overflow: auto;
+  }
+  &-footer {
+    padding: 1.4rem;
+    border-top: 1px solid #00000026;
+    &__cost {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__price {
+      font-weight: 700;
+    }
+    &__btn {
+      margin-top: 2rem;
+      width: 100%;
+    }
+  }
+  &-icon {
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    padding: 0px 14px;
+    border-radius: 100px;
+    &__count {
+      padding: 0 25px;
+    }
+  }
+}
+
+.no-item {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+}
+
+.remove-item {
+  & svg {
+    color: $color-red;
+    cursor: pointer;
+  }
+}

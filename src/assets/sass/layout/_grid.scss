@@ -49,6 +49,7 @@
   }
 
   .col-1-of-4 {
+    @include clearfix;
     width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
   }
 
